@@ -1,13 +1,16 @@
 package com.example.valer.lab_3_4;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class CountdownActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +25,33 @@ public class CountdownActivity extends AppCompatActivity {
 
         long kesto = Integer.parseInt(aika)*1000;       //kerrotaan tuhannella->millis
 
+
+
+
         new CountDownTimer(kesto,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timer_textview.setText(String.valueOf(millisUntilFinished/1000));       //muutetaan sekunneiksi
             }
 
+
             @Override
             public void onFinish() {
+                MPstart();
                 finish();
                 Toast.makeText(CountdownActivity.this, "Aika päättyi", Toast.LENGTH_LONG).show();
+
             }
         }.start();
+
+
     }
+        MediaPlayer mp;
+
+    public void MPstart(){
+
+            mp = MediaPlayer.create(this,R.raw.bell);
+            mp.start();
+        }
+
 }
